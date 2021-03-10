@@ -1,7 +1,7 @@
 const express = require('express');
 const conectarDB = require('./config/db');
 const cors = require('cors');
-
+require('dotenv').config();
 // crear el servidor
 const app = express();
 
@@ -15,7 +15,10 @@ app.use(cors());
 app.use(express.json({ extended: true }));
 
 // puerto del servidor
-const port = process.env.port || 4000; 
+// const port = process.env.port || 4000; 
+
+var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
+var server_host = process.env.YOUR_HOST || '0.0.0.0';
 
 // Importar rutas
 app.use('/api/usuarios', require('./routes/usuarios'));
@@ -30,6 +33,6 @@ app.get('/', (req, res) => {
 })
 
 // arrancar el servidor
-app.listen(port, '0.0.0.0', () => {
-    console.log(`El servidor esta funcionando en el puerto ${port}`);
+app.listen(server_port, server_host, () => {
+    console.log(`El servidor esta funcionando en el puerto ${server_port}`);
 })
